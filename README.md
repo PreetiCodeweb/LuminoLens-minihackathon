@@ -6,7 +6,7 @@ A modern, responsive landing page for **LuminoLens** – an innovative blue-ligh
 
 ## 🖼️ Live Demo
 
-> 🧪 Want to try it out? Open `index.html` in any browser or host it using GitHub Pages, Netlify, or Vercel.
+>   https://preeticodeweb.github.io/LuminoLens-minihackathon/
 
 ---
 
