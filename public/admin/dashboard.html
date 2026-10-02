@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard — LuminoLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen bg-[var(--color-1)] text-[var(--color-5)]">
+
+  <header class="w-full bg-[var(--color-5)] shadow-md">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <a href="../index.html" class="text-2xl font-bold tracking-wide text-white hover:text-[var(--color-2)]">LuminoLens <span class="text-sm font-normal">Admin</span></a>
+      <nav class="flex items-center gap-6 text-white font-medium uppercase text-sm">
+        <a href="../index.html" class="hover:text-[var(--color-2)]">View Storefront</a>
+        <span data-nav-auth class="flex items-center gap-4 normal-case"></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="adminGate" class="flex-1 py-10 px-6">
+    <div class="container mx-auto">
+
+      <!-- Stats -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div class="bg-white rounded-xl p-5 shadow"><p class="text-xs uppercase text-[var(--color-4)] mb-1">Revenue</p><p id="statRevenue" class="text-2xl font-bold">$0.00</p></div>
+        <div class="bg-white rounded-xl p-5 shadow"><p class="text-xs uppercase text-[var(--color-4)] mb-1">Orders</p><p id="statOrders" class="text-2xl font-bold">0</p></div>
+        <div class="bg-white rounded-xl p-5 shadow"><p class="text-xs uppercase text-[var(--color-4)] mb-1">Products</p><p id="statProducts" class="text-2xl font-bold">0</p></div>
+        <div class="bg-white rounded-xl p-5 shadow"><p class="text-xs uppercase text-[var(--color-4)] mb-1">Customers</p><p id="statCustomers" class="text-2xl font-bold">0</p></div>
+      </div>
+
+      <div id="lowStockAlert" class="hidden bg-amber-100 border border-amber-400 text-amber-800 rounded-lg p-4 mb-8 text-sm"></div>
+
+      <!-- Tabs -->
+      <div class="flex gap-3 mb-6">
+        <button class="tab-btn px-5 py-2 rounded-full bg-[var(--color-5)] text-white font-medium" data-tab="products">Products</button>
+        <button class="tab-btn px-5 py-2 rounded-full bg-white font-medium" data-tab="orders">Orders</button>
+      </div>
+
+      <!-- Products tab -->
+      <section id="tab-products">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-bold">Catalog (<span id="productCount">0</span>)</h2>
+          <button id="newProductBtn" class="btn-primary">+ Add Product</button>
+        </div>
+        <div class="bg-white rounded-xl shadow overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-[var(--color-1)] text-left">
+              <tr>
+                <th class="p-3">Image</th>
+                <th class="p-3">Title</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">Price</th>
+                <th class="p-3">Stock</th>
+                <th class="p-3">Face Shapes</th>
+                <th class="p-3">Active</th>
+                <th class="p-3"></th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Orders tab -->
+      <section id="tab-orders" class="hidden">
+        <h2 class="text-2xl font-bold mb-4">All Orders</h2>
+        <div id="adminOrdersList" class="space-y-4"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Product form modal -->
+  <div id="productModal" class="modal-backdrop fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-lg w-full max-h-[90vh] overflow-y-auto p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="productModalTitle" class="text-xl font-bold">Add Product</h3>
+        <button onclick="closeProductModal()" class="text-2xl leading-none">&times;</button>
+      </div>
+      <form id="productForm" class="space-y-3">
+        <input type="hidden" id="pId" />
+        <div>
+          <label class="text-sm font-medium">Title</label>
+          <input type="text" id="pTitle" required class="form-input" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-sm font-medium">Price (USD)</label>
+            <input type="number" id="pPrice" step="0.01" min="0" required class="form-input" />
+          </div>
+          <div>
+            <label class="text-sm font-medium">Stock</label>
+            <input type="number" id="pStock" min="0" required class="form-input" />
+          </div>
+        </div>
+        <div>
+          <label class="text-sm font-medium">Category</label>
+          <input type="text" id="pCategory" required class="form-input" placeholder="Eyeglasses / Sunglasses / Blue Light" />
+        </div>
+        <div>
+          <label class="text-sm font-medium">Image URL</label>
+          <input type="url" id="pImage" required class="form-input" />
+        </div>
+        <div>
+          <label class="text-sm font-medium">Description</label>
+          <textarea id="pDescription" rows="2" class="form-input"></textarea>
+        </div>
+        <div>
+          <label class="text-sm font-medium">Features (comma separated)</label>
+          <input type="text" id="pFeatures" class="form-input" placeholder="Metal rims, Unisex, Includes case" />
+        </div>
+        <div>
+          <label class="text-sm font-medium block mb-1">Suits face shapes</label>
+          <div id="pFaceShapes" class="flex flex-wrap gap-3 text-sm">
+            <label class="flex items-center gap-1"><input type="checkbox" value="round" class="face-shape-cb" /> Round</label>
+            <label class="flex items-center gap-1"><input type="checkbox" value="oval" class="face-shape-cb" /> Oval</label>
+            <label class="flex items-center gap-1"><input type="checkbox" value="square" class="face-shape-cb" /> Square</label>
+            <label class="flex items-center gap-1"><input type="checkbox" value="heart" class="face-shape-cb" /> Heart</label>
+            <label class="flex items-center gap-1"><input type="checkbox" value="diamond" class="face-shape-cb" /> Diamond</label>
+            <label class="flex items-center gap-1"><input type="checkbox" value="oblong" class="face-shape-cb" /> Oblong</label>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="pActive" checked />
+          <label for="pActive" class="text-sm">Active (visible in store)</label>
+        </div>
+        <button type="submit" class="btn-primary w-full mt-2">Save Product</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

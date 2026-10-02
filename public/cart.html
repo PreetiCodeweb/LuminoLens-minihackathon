@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart — LuminoLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <header class="w-full bg-[var(--color-5)] shadow-md">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <a href="index.html" class="text-2xl font-bold tracking-wide text-white hover:text-[var(--color-2)]">LuminoLens</a>
+      <nav class="flex items-center gap-6 text-white font-medium uppercase text-sm">
+        <a href="index.html" class="hover:text-[var(--color-2)]">Home</a>
+        <a href="index.html#products" class="hover:text-[var(--color-2)]">Shop</a>
+        <span data-nav-auth class="flex items-center gap-4 normal-case"></span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 bg-[var(--color-1)] text-[var(--color-5)] py-14 px-6">
+    <div class="container mx-auto grid lg:grid-cols-3 gap-10">
+
+      <!-- Cart items -->
+      <div class="lg:col-span-2">
+        <h1 class="text-3xl font-bold mb-6">Your Cart</h1>
+        <div id="cartItems" class="space-y-4"></div>
+        <div id="emptyCart" class="hidden bg-white rounded-xl p-10 text-center">
+          <p class="text-lg mb-4">Your cart is empty.</p>
+          <a href="index.html#products" class="btn-primary inline-block">Browse Frames</a>
+        </div>
+      </div>
+
+      <!-- Summary + checkout -->
+      <div>
+        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+          <h2 class="text-xl font-bold mb-4">Order Summary</h2>
+          <div class="flex justify-between mb-2 text-sm"><span>Subtotal</span><span id="sumSubtotal">$0.00</span></div>
+          <div class="flex justify-between mb-2 text-sm"><span>Shipping</span><span id="sumShipping">$0.00</span></div>
+          <p class="text-xs text-[var(--color-4)] mb-3">Free shipping on orders over $100</p>
+          <div class="flex justify-between font-bold text-lg border-t pt-3 mb-6"><span>Total</span><span id="sumTotal">$0.00</span></div>
+
+          <form id="checkoutForm" class="space-y-3">
+            <h3 class="font-semibold">Delivery Details</h3>
+            <input type="text" id="shipName" placeholder="Full name" required class="form-input" />
+            <input type="text" id="shipAddress" placeholder="Street address" required class="form-input" />
+            <div class="grid grid-cols-2 gap-3">
+              <input type="text" id="shipCity" placeholder="City" required class="form-input" />
+              <input type="text" id="shipState" placeholder="State" class="form-input" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="text" id="shipZip" placeholder="ZIP / Postal code" required class="form-input" />
+              <input type="tel" id="shipPhone" placeholder="Phone" required class="form-input" />
+            </div>
+            <select id="paymentMethod" class="form-input">
+              <option>Cash on Delivery</option>
+              <option>Card on Delivery</option>
+              <option>UPI on Delivery</option>
+            </select>
+            <button type="submit" id="placeOrderBtn" class="btn-primary w-full mt-2">Place Order</button>
+            <p class="text-xs text-center text-[var(--color-4)]">You'll need to be logged in to place an order.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-10 px-6">
+    <div class="container mx-auto text-center text-sm">
+      <p class="font-bold text-lg mb-2">LuminoLens</p>
+      <p>&copy; 2026 LuminoLens.</p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Orders — LuminoLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <header class="w-full bg-[var(--color-5)] shadow-md">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <a href="index.html" class="text-2xl font-bold tracking-wide text-white hover:text-[var(--color-2)]">LuminoLens</a>
+      <nav class="flex items-center gap-6 text-white font-medium uppercase text-sm">
+        <a href="index.html" class="hover:text-[var(--color-2)]">Home</a>
+        <a href="index.html#products" class="hover:text-[var(--color-2)]">Shop</a>
+        <span data-nav-auth class="flex items-center gap-4 normal-case"></span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 bg-[var(--color-1)] text-[var(--color-5)] py-14 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="text-3xl font-bold mb-8">My Orders</h1>
+      <div id="ordersList" class="space-y-6"></div>
+      <div id="noOrders" class="hidden bg-white rounded-xl p-10 text-center">
+        <p class="text-lg mb-4">You haven't placed any orders yet.</p>
+        <a href="index.html#products" class="btn-primary inline-block">Start Shopping</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-10 px-6">
+    <div class="container mx-auto text-center text-sm">
+      <p class="font-bold text-lg mb-2">LuminoLens</p>
+      <p>&copy; 2026 LuminoLens.</p>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+</html>

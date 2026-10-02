@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Face Scan — LuminoLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <header id="navbar" class="w-full bg-[var(--color-5)] shadow-md">
+    <div class="container mx-auto flex items-center justify-between py-4 px-6">
+      <a href="index.html" class="text-2xl font-bold tracking-wide text-white select-none hover:text-[var(--color-2)]">LuminoLens</a>
+      <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none">☰</button>
+      <nav class="hidden md:flex items-center justify-evenly flex-1 text-white font-medium tracking-wide uppercase text-sm max-w-2xl ml-10">
+        <a href="index.html" class="hover:text-[var(--color-2)]">Home</a>
+        <a href="index.html#products" class="hover:text-[var(--color-2)]">Shop</a>
+        <a href="face-scan.html" class="active hover:text-[var(--color-2)]">Face Scan</a>
+        <a href="about.html" class="hover:text-[var(--color-2)]">About</a>
+        <a href="cart.html" class="hover:text-[var(--color-2)] relative">Cart
+          <span data-cart-count class="hidden absolute -top-2 -right-4 bg-[var(--color-2)] text-[var(--color-5)] text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+        </a>
+        <span data-nav-auth class="flex items-center gap-4 normal-case"></span>
+      </nav>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden flex-col space-y-3 pb-4 px-6 text-white font-medium uppercase text-sm">
+      <a href="index.html" class="block">Home</a>
+      <a href="index.html#products" class="block">Shop</a>
+      <a href="about.html" class="block">About</a>
+      <a href="cart.html" class="block">Cart</a>
+      <span data-nav-auth class="flex flex-col gap-2 normal-case"></span>
+    </div>
+  </header>
+
+  <main class="flex-1 bg-[var(--color-1)] text-[var(--color-5)]">
+    <div class="container mx-auto px-6 py-16 grid lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Scanner -->
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-3xl font-bold mb-2">📷 AI Face Shape Scan</h1>
+        <p class="text-sm text-[var(--color-4)] mb-6">
+          Everything happens right in your browser — your camera feed is never uploaded anywhere.
+          Center your face, good lighting helps, then hit "Analyze My Face".
+        </p>
+
+        <div class="relative rounded-lg overflow-hidden bg-black aspect-[4/3] mb-4">
+          <video id="video" class="w-full h-full object-cover" autoplay muted playsinline></video>
+          <canvas id="overlay" class="absolute inset-0 w-full h-full"></canvas>
+          <div id="scanLoading" class="hidden absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center text-white text-sm">
+            Loading face model…
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <button id="startCamBtn" class="btn-primary">Start Camera</button>
+          <button id="analyzeBtn" class="btn-secondary" disabled>Analyze My Face</button>
+          <button id="rescanBtn" class="hidden btn-secondary">Scan Again</button>
+        </div>
+        <p id="scanStatus" class="text-sm mt-3 text-[var(--color-4)]"></p>
+      </div>
+
+      <!-- Result -->
+      <div>
+        <div id="resultEmpty" class="bg-white/60 border-2 border-dashed border-[var(--color-3)] rounded-xl p-10 text-center">
+          <p class="text-lg font-medium">Your result will appear here after scanning.</p>
+        </div>
+
+        <div id="resultCard" class="hidden bg-white rounded-xl shadow-lg p-8">
+          <p class="text-sm uppercase tracking-wide text-[var(--color-3)] font-semibold mb-1">Detected Face Shape</p>
+          <h2 id="shapeName" class="text-4xl font-bold mb-3 capitalize"></h2>
+          <p id="shapeDescription" class="mb-6"></p>
+          <div class="mb-6">
+            <p class="font-semibold mb-2">Frame styles that suit you:</p>
+            <div id="shapeStyleTags" class="flex flex-wrap gap-2"></div>
+          </div>
+          <a href="#recommendedProducts" class="btn-primary inline-block">See Recommended Frames ↓</a>
+        </div>
+
+        <div id="recommendedProducts" class="mt-10 grid gap-6 sm:grid-cols-2"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-10 px-6">
+    <div class="container mx-auto text-center text-sm">
+      <p class="font-bold text-lg mb-2">LuminoLens</p>
+      <p>&copy; 2026 LuminoLens. Protect your eyes, power your day.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/face-scan.js"></script>
+</body>
+</html>

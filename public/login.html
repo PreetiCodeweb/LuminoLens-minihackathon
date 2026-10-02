@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login — LuminoLens</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen bg-[var(--color-1)]">
+  <header class="w-full bg-[var(--color-5)] py-4 px-6">
+    <a href="index.html" class="text-2xl font-bold text-white">LuminoLens</a>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center px-6 py-16">
+    <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md text-[var(--color-5)]">
+      <h1 class="text-3xl font-bold mb-1">Welcome back</h1>
+      <p class="text-sm text-[var(--color-4)] mb-6">Log in to check out, track orders, and save your face-scan matches.</p>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input type="email" id="email" required class="form-input" placeholder="you@example.com" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Password</label>
+          <input type="password" id="password" required class="form-input" placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn-primary w-full">Log In</button>
+      </form>
+
+      <p class="text-sm text-center mt-6">Don't have an account? <a href="register.html" class="font-semibold underline">Sign up</a></p>
+
+      <div class="mt-6 border-t pt-4 text-xs text-[var(--color-4)]">
+        <p class="font-semibold mb-1">Demo accounts</p>
+        <p>Admin: admin@luminolens.com / admin123</p>
+        <p>Customer: customer@luminolens.com / customer123</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      try {
+        const { token, user } = await api("/auth/login", { method: "POST", body: { email, password } });
+        Auth.setSession(token, user);
+        showToast(`Welcome back, ${user.name.split(" ")[0]}!`);
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get("next");
+        setTimeout(() => {
+          window.location.href = next || (user.role === "admin" ? "admin/dashboard.html" : "index.html");
+        }, 500);
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+:root {
+  --color-1: #ced5ca;
+  --color-2: #8da38c;
+  --color-3: #587668;
+  --color-4: #3a5153;
+  --color-5: #2b393f;
+}
+
+body {
+  font-family: "Georgia", serif;
+  background-color: var(--color-1);
+  color: white;
+}
+
+a {
+  transition: color 0.3s ease;
+}
+
+/* ---- Nav ---- */
+nav a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--color-2);
+  transition: width 0.3s;
+  margin-top: 4px;
+}
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
+/* ---- Cards ---- */
+.product-card {
+  background: var(--color-1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(43, 57, 63, 0.2);
+}
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(43, 57, 63, 0.35);
+  z-index: 10;
+}
+
+.recommended-badge {
+  background: var(--color-3);
+}
+
+/* ---- Modal ---- */
+.modal-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- Toast ---- */
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+#toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+footer {
+  background-color: var(--color-5);
+  color: var(--color-1);
+}
+
+.fade-slide-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.6s forwards;
+}
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-input {
+  background: white;
+  color: var(--color-5);
+  border: 1px solid var(--color-2);
+  border-radius: 0.375rem;
+  padding: 0.6rem 0.85rem;
+  width: 100%;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-3);
+  box-shadow: 0 0 0 3px rgba(88, 118, 104, 0.25);
+}
+
+.btn-primary {
+  background: var(--color-3);
+  color: white;
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  border-radius: 0.375rem;
+  transition: background 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--color-4);
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-3);
+  color: var(--color-4);
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 0.375rem;
+}
+.btn-danger {
+  background: #b64949;
+  color: white;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.status-Placed { background: #dbeafe; color: #1e40af; }
+.status-Processing { background: #fef3c7; color: #92400e; }
+.status-Shipped { background: #ede9fe; color: #5b21b6; }
+.status-Out-for-Delivery { background: #fed7aa; color: #9a3412; }
+.status-Delivered { background: #d1fae5; color: #065f46; }
+.status-Cancelled { background: #fee2e2; color: #991b1b; }

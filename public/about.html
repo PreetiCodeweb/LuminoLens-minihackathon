@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - LuminoLens</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@studio-freight/lenis@latest/bundled/lenis.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Outfit", sans-serif;
+      }
+
+      body {
+        background: #0d0d0d;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      header {
+        background: #0d0d0d;
+        padding: 20px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 6px 18px 2px rgba(34, 34, 34, 0.212);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        border-bottom: 1px solid #4d4d4d28;
+      }
+
+      header .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #00ffd1;
+      }
+
+      header nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #999999;
+        font-weight: 500;
+      }
+      header nav a:hover {
+        color: #ffffff;
+      }
+      header .btns button {
+        padding: 8px 16px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 20px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .login {
+        background: transparent;
+        color: #ffffff;
+      }
+
+      .signup {
+        background: #000;
+        color: rgb(82, 219, 253);
+        box-shadow: 0 6px 8px 2px rgba(27, 27, 27, 0.329);
+      }
+
+      section {
+        padding: 100px 5%;
+      }
+
+      .hero {
+        position: relative;
+        background: radial-gradient(
+          ellipse at center,
+          #0d0d0d 0%,
+          #111111 100%
+        );
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -20%;
+        left: -20%;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(
+          circle at center,
+          rgba(0, 255, 234, 0.1),
+          transparent 70%
+        );
+        animation: rotateHeroGlow 20s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes rotateHeroGlow {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(to right, #00fff0, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        z-index: 1;
+      }
+
+      .tagline {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        z-index: 1;
+        background: linear-gradient(to right, #00fff0, #38bdf8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: floatIn 1.5s ease forwards;
+        opacity: 0;
+      }
+
+      .word {
+        margin: 4px 0;
+        transition: transform 0.4s ease;
+      }
+
+      .tagline .word:hover {
+        transform: translateY(-4px) scale(1.02);
+      }
+
+      .highlight-word {
+        background: linear-gradient(to right, #facc15, #f472b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      @keyframes floatIn {
+        0% {
+          transform: translateY(40px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .tagline {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          padding: 40px 5%;
+          height: auto;
+        }
+
+        .tagline {
+          font-size: 28px;
+          line-height: 1.4;
+        }
+
+        .hero p {
+          font-size: 16px;
+          margin: 20px 0;
+        }
+
+        .btn-primary {
+          padding: 12px 24px;
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        header nav {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        header .btns {
+          align-self: flex-end;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .stats-grid,
+        .features,
+        .vision-grid {
+          grid-template-columns: 1fr !important;
+          gap: 1rem;
+        }
+
+        .stat-card,
+        .feature,
+        .vision-card {
+          width: 100% !important;
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .about-animated-text {
+          padding: 60px 5%;
+        }
+
+        .about-animated-text h1 {
+          font-size: 22px;
+          line-height: 1.6;
+        }
+      }
+
+      .hero p {
+        font-style: italic;
+        color: #bbbbbb;
+        font-size: 18px;
+        max-width: 700px;
+        margin: 0 auto 30px auto;
+        z-index: 1;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #00ffe5, #3b82f6);
+        color: #000;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        z-index: 1;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px #00ffe5b3;
+      }
+
+      .about-animated-text {
+        display: flex;
+        justify-content: center;
+        padding: 100px 5%;
+        background-color: #0d0d0d;
+      }
+
+      .about-animated-text .container {
+        max-width: 700px;
+        width: 100%;
+      }
+
+      .about-animated-text h1 {
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.6;
+      }
+
+      .about-animated-text h1 div {
+        background: linear-gradient(to right, #ffffff 50%, #7a7d8313 50%);
+        background-size: 200% 100%;
+        background-position-x: 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .about-animated-text div {
+        background: linear-gradient(to right, #4d8bff 50%, #d1d5db5e 50%);
+        background-size: 200% 100%;
+        background-position-x: 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .stats {
+        padding: 80px 5%;
+        background: #0d0d0d;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #ffffff;
+      }
+
+      .stats-grid {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 40px;
+      }
+
+      .stat-card {
+        background: #1a1a1a;
+        border-radius: 16px;
+        padding: 30px 40px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        width: 220px;
+        transition: transform 0.3s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-card h3 {
+        font-size: 36px;
+        color: #ffffff;
+        margin-bottom: 10px;
+      }
+
+      .stat-card p {
+        font-size: 16px;
+        color: #999999;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 40px;
+      }
+
+      .feature,
+      .vision-card {
+        background: #1a1a1a;
+        padding: 24px;
+        border-radius: 12px;
+        text-align: center;
+        color: #ffffff;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .vision-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin-top: 40px;
+      }
+
+      footer {
+        background: #0b0b0b;
+        color: white;
+        padding: 60px 5%;
+        text-align: center;
+        margin-top: 80px;
+      }
+
+      footer p {
+        color: #888;
+        margin-top: 10px;
+      }
+
+      /* Vibrant animated black background */
+      body {
+        background: #0d0d0d;
+        background-image: radial-gradient(
+            circle at 30% 30%,
+            rgba(40, 40, 40, 0.2),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(60, 60, 60, 0.2),
+            transparent 50%
+          );
+        background-size: 100% 100%;
+        color: #ffffff;
+        overflow-x: hidden;
+        animation: bg-pulse 12s infinite ease-in-out;
+      }
+
+      @keyframes bg-pulse {
+        0%,
+        100% {
+          background-position: 30% 30%, 70% 70%;
+        }
+        50% {
+          background-position: 35% 35%, 65% 65%;
+        }
+      }
+
+      /* Optional: Glowing border on section cards */
+      .feature,
+      .vision-card,
+      .stat-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature::before,
+      .vision-card::before,
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate-glow 10s linear infinite;
+        z-index: 0;
+      }
+
+      @keyframes rotate-glow {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .feature,
+      .vision-card,
+      .stat-card {
+        z-index: 1;
+      }
+
+      .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png"); /* dark subtle noise */
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: -1;
+        animation: slide-bg 20s linear infinite;
+      }
+
+      @keyframes slide-bg {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 100% 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="animated-bg"></div>
+      <div class="logo">Lumino<span style="color: #3b82f6">Lens</span></div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="face-scan.html">Face Scan</a>
+        <a href="cart.html">Cart</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1 class="tagline">
+        <span class="word">Bright Eyes for Bright Minds</span>
+        <span class="highlight-word"> - Clarity Meets Comfort</span>
+      </h1>
+
+      <p>
+        With 8–12 hours of daily screen time, digital eye strain is the new
+        normal. LuminoLens offers scientifically-backed blue light
+        glasses—affordable, stylish, and trusted. Say goodbye to overpriced
+        brands and unverified lenses
+      </p>
+      <a href="index.html#products"><button class="btn-primary">Explore More</button></a>
+    </section>
+
+    <section class="about-animated-text">
+      <div class="container">
+        <h1 id="animatedAbout">
+          LuminoLens offers affordable, scientifically verified blue light
+          filtering glasses designed for students, coders, designers, and
+          digital professionals. What Sets Us Apart: Affordable: Priced for
+          accessibility (₹399–₹799) Verified: Certified lenses with spectrometer
+          test reports Educational: Each pair links to a microsite with eye care
+          exercises, blue light research, and ergonomic study tips Comfortable
+          Design: Lightweight, minimalist frames for long screen hours Why
+          LuminoLens? Unlike generic glasses, we combine eye protection with
+          transparent science and daily care tools—supporting both screen
+          wellness and youth eye health. Future Roadmap: UV-protection
+          sunglasses & ergonomic add-ons School/coding center health kits AR/VR
+          eye compliance solutions
+        </h1>
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2 class="section-title">Our Impact So Far</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>1,200+</h3>
+          <p>Stores Onboarded</p>
+        </div>
+        <div class="stat-card">
+          <h3>85,000+</h3>
+          <p>People Helped</p>
+        </div>
+        <div class="stat-card">
+          <h3>9,500+</h3>
+          <p>Lens Tracked</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Our Values</h2>
+      <p
+        style="
+          text-align: center;
+          margin: 0 auto 30px auto;
+          font-size: 16px;
+          color: #444;
+        "
+      >
+        Committed to affordable, transparent lens for all. Empowering smart
+        health choices.
+      </p>
+      <div class="features">
+        <div class="feature">Affordable lens for All</div>
+        <div class="feature">Transparency in specs Pricing</div>
+        <div class="feature">Empowering Smart Decisions</div>
+        <div class="feature">Supporting eye exercises</div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Our Mission</h2>
+      <p
+        style="
+          text-align: center;
+          margin: 0 auto 30px auto;
+          font-size: 16px;
+          color: #444;
+        "
+      >
+        A world where everyone has access to trustworthy and affordable Smart
+        Lens, ensuring no compromises on power and well-being.
+      </p>
+      <div class="vision-grid">
+        <div class="vision-card">One-click alternative finder</div>
+        <div class="vision-card">Crowdsourced pricing updates</div>
+        <div class="vision-card">Smart lens integrations</div>
+        <div class="vision-card">AI-powered recommendations (soon)</div>
+      </div>
+    </section>
+
+    <footer>
+      <h3>Let’s Connect</h3>
+      <p>
+        Contact us at team@LuminoLens.org • Built by one student who care deeply
+        about your eye-sight.
+      </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+
+      const split = new SplitText("#animatedAbout", { type: "lines" });
+
+      split.lines.forEach((line) => {
+        gsap.to(line, {
+          backgroundPositionX: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: line,
+            start: "top 60%",
+            end: "bottom 50%",
+            scrub: 0.4,
+          },
+        });
+      });
+
+      const lenis = new Lenis({
+        smooth: true,
+        lerp: 0.045,
+        direction: "vertical",
+        gestureOrientation: "vertical",
+        smoothTouch: true,
+        touchMultiplier: 1.3,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    </script>
+  </body>
+</html>
